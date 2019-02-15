@@ -33,11 +33,11 @@ new Dogs("Corgi", 35, true);
 
 ### Post  
 
-- [ ] /dogs -> adds the dog
+- [x] /dogs -> adds the dog
 
 ### Delete
 
-- [ ] /dogs/{id} -> deletes the dog with that id
+- [x] /dogs/{id} -> deletes the dog with that id
 
 ## Recommended Steps
 1. Build a new project . 

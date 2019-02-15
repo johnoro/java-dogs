@@ -112,7 +112,7 @@ public class DogController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> replaceEmployee(@RequestBody Dog newDog, @PathVariable Long id)
+  public ResponseEntity<?> replaceDog(@RequestBody Dog newDog, @PathVariable Long id)
     throws URISyntaxException
   {
     Dog updatedDog = repository.findById(id)
@@ -135,7 +135,7 @@ public class DogController {
   }
 
   @PostMapping("")
-  public ResponseEntity<?> addEmployee(@RequestBody Dog newDog)
+  public ResponseEntity<?> addDog(@RequestBody Dog newDog)
     throws URISyntaxException
   {
     Dog dog = repository.save(newDog);
@@ -145,5 +145,12 @@ public class DogController {
     return ResponseEntity
       .created(new URI(resource.getId().expand().getHref()))
       .body(resource);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> deleteDog(@PathVariable Long id) {
+    repository.deleteById(id);
+
+    return ResponseEntity.noContent().build();
   }
 }
