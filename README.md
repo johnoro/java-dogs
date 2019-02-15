@@ -2,13 +2,13 @@
 
 # Introduction
 Develop a simple REST Web application to work with data about dogs
-- [ ] Dogs have an auto generated id, breed name, average weight, boolean that true if the breed of dog is appropriate for apartment living otherwise false.
+- [z] Dogs have an auto generated id, breed name, average weight, boolean that true if the breed of dog is appropriate for apartment living otherwise false.
 
 # Instructions
 Create a Java RESTful API Web application using Web, DevTools, H2, hateoas, and Jackson and JPA.  
 
 ## Data
-- [ ] Seed the data with the following  
+- [x] Seed the data with the following  
 
 new Dogs("Springer", 50, false);
 new Dogs("Bulldog", 50, true);
