@@ -133,4 +133,17 @@ public class DogController {
       .created(new URI(resource.getId().expand().getHref()))
       .body(resource);
   }
+
+  @PostMapping("")
+  public ResponseEntity<?> addEmployee(@RequestBody Dog newDog)
+    throws URISyntaxException
+  {
+    Dog dog = repository.save(newDog);
+
+    Resource<Dog> resource = assembler.toResource(dog);
+
+    return ResponseEntity
+      .created(new URI(resource.getId().expand().getHref()))
+      .body(resource);
+  }
 }
