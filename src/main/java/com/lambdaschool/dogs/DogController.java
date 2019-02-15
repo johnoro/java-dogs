@@ -153,4 +153,13 @@ public class DogController {
 
     return ResponseEntity.noContent().build();
   }
+
+  @DeleteMapping("/breeds/{breed}")
+  public ResponseEntity<?> deleteDogsByBreed(@PathVariable String breed) {
+    repository.findAll().stream()
+      .filter(dog -> dog.getBreed().equals(breed))
+      .forEach(dog -> repository.delete(dog));
+
+    return ResponseEntity.noContent().build();
+  }
 }

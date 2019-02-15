@@ -54,6 +54,6 @@ new Dogs("Corgi", 35, true);
 
 ### Delete  
 
-- [ ] /dogs/breeds/{breed} -> deletes that dog breed
+- [x] /dogs/breeds/{breed} -> deletes that dog breed
 
 Throughout the project, when adding dogs make sure the **breed names are unique**
