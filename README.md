@@ -21,7 +21,7 @@ new Dogs("Corgi", 35, true);
 ### Get
 
 - [x] /dogs/breeds -> returns a listing of all dogs ordered by breed   
-- [ ] /dogs/weight -> returns a listing of all dogs ordered by average weight  
+- [x] /dogs/weight -> returns a listing of all dogs ordered by average weight  
 - [ ] /dogs/breeds/{breed} -> returns dogs of just that breed  
 - [ ] /dogs/apartment -> returns dogs suitable for apartments    
 

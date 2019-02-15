@@ -19,6 +19,19 @@ public class DogController {
   private final DogRepository repository;
   private final DogResourceAssembler assembler;
 
+  private List<Resource<Dog>> getAllBy() {
+    return repository.findAll().stream()
+      .map(assembler::toResource)
+      .collect(Collectors.toList());
+  }
+
+  private List<Resource<Dog>> getAllBy(DogTester tester) {
+    return repository.findAll().stream()
+      .sorted(tester::test)
+      .map(assembler::toResource)
+      .collect(Collectors.toList());
+  }
+
   public DogController(DogRepository repository, DogResourceAssembler assembler) {
     this.repository = repository;
     this.assembler = assembler;
@@ -26,9 +39,7 @@ public class DogController {
 
   @GetMapping("")
   public Resources<Resource<Dog>> all() {
-    List<Resource<Dog>> dogs = repository.findAll().stream()
-      .map(assembler::toResource)
-      .collect(Collectors.toList());
+    List<Resource<Dog>> dogs = getAllBy();
 
     return new Resources<>(
       dogs,
@@ -46,10 +57,21 @@ public class DogController {
 
   @GetMapping("/breeds")
   public Resources<Resource<Dog>> allByBreed() {
-    List<Resource<Dog>> dogs = repository.findAll().stream()
-      .sorted((d1, d2) -> d1.getBreed().compareToIgnoreCase(d2.getBreed()))
-      .map(assembler::toResource)
-      .collect(Collectors.toList());
+    List<Resource<Dog>> dogs = getAllBy(
+      (d1, d2) -> d1.getBreed().compareToIgnoreCase(d2.getBreed())
+    );
+
+    return new Resources<>(
+      dogs,
+      linkTo(methodOn(DogController.class).allByBreed()).withSelfRel()
+    );
+  }
+
+  @GetMapping("/weight")
+  public Resources<Resource<Dog>> allByWeight() {
+    List<Resource<Dog>> dogs = getAllBy(
+      (d1, d2) -> (int)(d1.getAverageWeight() - d2.getAverageWeight())
+    );
 
     return new Resources<>(
       dogs,
