@@ -10,11 +10,13 @@ Create a Java RESTful API Web application using Web, DevTools, H2, hateoas, and 
 ## Data
 - [x] Seed the data with the following  
 
+```java
 new Dogs("Springer", 50, false);
 new Dogs("Bulldog", 50, true);
 new Dogs("Collie", 50, false);
 new Dogs("Boston Terrie", 35, true);
 new Dogs("Corgi", 35, true);
+```
 
 ## Expose the following endpoints
 
@@ -22,8 +24,8 @@ new Dogs("Corgi", 35, true);
 
 - [x] /dogs/breeds -> returns a listing of all dogs ordered by breed   
 - [x] /dogs/weight -> returns a listing of all dogs ordered by average weight  
-- [ ] /dogs/breeds/{breed} -> returns dogs of just that breed  
-- [ ] /dogs/apartment -> returns dogs suitable for apartments    
+- [x] /dogs/breeds/{breed} -> returns dogs of just that breed  
+- [x] /dogs/apartment -> returns dogs suitable for apartments    
 
 ### Put
 

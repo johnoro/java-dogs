@@ -25,12 +25,20 @@ public class DogController {
       .collect(Collectors.toList());
   }
 
-  private List<Resource<Dog>> getAllBy(DogTester tester) {
+  private List<Resource<Dog>> getAllBy(DogSortTester tester) {
     return repository.findAll().stream()
       .sorted(tester::test)
       .map(assembler::toResource)
       .collect(Collectors.toList());
   }
+
+  private List<Resource<Dog>> getSomeBy(DogTester tester) {
+    return repository.findAll().stream()
+      .filter(tester::test)
+      .map(assembler::toResource)
+      .collect(Collectors.toList());
+  }
+
 
   public DogController(DogRepository repository, DogResourceAssembler assembler) {
     this.repository = repository;
@@ -76,6 +84,30 @@ public class DogController {
     return new Resources<>(
       dogs,
       linkTo(methodOn(DogController.class).allByBreed()).withSelfRel()
+    );
+  }
+
+  @GetMapping("/breeds/{breed}")
+  public Resources<Resource<Dog>> someByBreed(@PathVariable String breed) {
+    List<Resource<Dog>> dogs = getSomeBy(
+      dog -> dog.getBreed().equals(breed)
+    );
+
+    return new Resources<>(
+      dogs,
+      linkTo(methodOn(DogController.class).someByBreed(breed)).withSelfRel()
+    );
+  }
+
+  @GetMapping("/apartment")
+  public Resources<Resource<Dog>> someByGoodForApt() {
+    List<Resource<Dog>> dogs = getSomeBy(
+      dog -> dog.isGoodForApartment()
+    );
+
+    return new Resources<>(
+      dogs,
+      linkTo(methodOn(DogController.class).someByGoodForApt()).withSelfRel()
     );
   }
 }
