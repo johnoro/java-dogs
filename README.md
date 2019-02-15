@@ -29,7 +29,7 @@ new Dogs("Corgi", 35, true);
 
 ### Put
 
-- [ ] /dogs/{id} -> adds or update if already present the dog with id value id  
+- [x] /dogs/{id} -> adds or update if already present the dog with id value id  
 
 ### Post  
 

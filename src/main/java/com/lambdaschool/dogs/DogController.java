@@ -2,11 +2,11 @@ package com.lambdaschool.dogs;
 
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -109,5 +109,28 @@ public class DogController {
       dogs,
       linkTo(methodOn(DogController.class).someByGoodForApt()).withSelfRel()
     );
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<?> replaceEmployee(@RequestBody Dog newDog, @PathVariable Long id)
+    throws URISyntaxException
+  {
+    Dog updatedDog = repository.findById(id)
+      .map(dog -> {
+        dog.setAverageWeight(newDog.getAverageWeight());
+        dog.setBreed(newDog.getBreed());
+        dog.setGoodForApartment(newDog.isGoodForApartment());
+        return repository.save(dog);
+      })
+      .orElseGet(() -> {
+        newDog.setId(id);
+        return repository.save(newDog);
+      });
+
+    Resource<Dog> resource = assembler.toResource(updatedDog);
+
+    return ResponseEntity
+      .created(new URI(resource.getId().expand().getHref()))
+      .body(resource);
   }
 }
